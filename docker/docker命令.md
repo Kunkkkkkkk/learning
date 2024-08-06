@@ -41,7 +41,7 @@ sudo systemctl restart docker
 
 `docker stop`停掉容器
 
-`docker run`运行容器
+`docker start`运行容器
 
 `docker ps`查看容器运行情况
 
@@ -60,6 +60,8 @@ sudo systemctl restart docker
 `docker save`保存镜像到tar或者tar.gz(压缩)
 
 `docker images`查看本地仓库镜像
+
+`docker logs -f`查看容器日志 
 
 `docker exec -it 容器名字 bash` 进入该容器启动一个终端，相当于在一台可以操作该容器的电脑上操作.<u>是最小化的运行系统，所以可能没有vim等命令</u>
 
@@ -113,3 +115,19 @@ docker volume inspect html   这里是卷名
 但是本地数据卷的名字很长，打命令的时候不方便。实现挂载很不方便，所以我们可以在  `卷名:容器目标文件夹` 这里把卷名写成宿主机的目标文件夹，<u>**但是**</u>这里得写 ./mysql : usr/mysql   这里前面不加一个 `/`会被认为是一个卷名
 
 ![image-20240806100924963](docker命令.assets/image-20240806100924963.png)
+
+##### 案例
+
+以部署mysql为例子
+
+```
+docker run -d --name mysql \
+  -p 3306:3306 \
+  -e MYSQL_ROOT_PASSWORD=123 \
+  -v /root/mysql/init:/docker-entrypoint-initdb.d \
+  -v /root/mysql/conf/my.cnf:/etc/mysql/my.cnf \       //切记这里，当在var/lib/mysql不存在时，如果是按视频上前面不到my.cnf则不会正常创建。存在之后可以到/conf就行
+  -v /root/mysql/data:/var/lib/mysql \
+  mysql
+
+```
+
