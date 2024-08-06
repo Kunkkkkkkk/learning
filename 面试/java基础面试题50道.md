@@ -173,6 +173,8 @@
     String不可变，每次修改都是生成了一个新的对象
     StringBuffer和StringBuilder都是对原有对象的修改，builder的速度更快，一般不考虑线程安全的时候都用它（因为builder不能同步访问）
     要线程安全的情况下必须用buffer，适合多线程
+    引用对象来拼接字符串都是用这几个，然后==为false
+    用的是final来拼接不会使用
     ```
 
     ```java
@@ -183,7 +185,7 @@
       sout(sb);  //输出结果:hello
       sb.append(0,"world1");
       sout(sb);  //输出结果:world1hello   可以大于10
-    	sb.delete(3,7);  //前删后不删
+    	sb.delete(3,7);  // [前删后不删]
       sout(sb);  //输出结果: worello
     }
     ```
