@@ -10,3 +10,8 @@
 
 结合案例理解
 
+
+
+移除所有
+
+`docker compose down`
