@@ -624,7 +624,7 @@
     public
     private
     
-    前两个是重点：区别在于在不在同一个包里可以调用
+    protected,default 是重点：区别在于在不在同一个包里可以调用
     public>protected>default>private
     ```
 
