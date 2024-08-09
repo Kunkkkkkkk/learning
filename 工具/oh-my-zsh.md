@@ -1,1 +1,0 @@
-![image-20240806111304708](oh-my-zsh.assets/image-20240806111304708.png)
