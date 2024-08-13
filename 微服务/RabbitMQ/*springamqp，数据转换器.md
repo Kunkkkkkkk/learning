@@ -85,7 +85,7 @@ public void listen(String msg) throws InterruptedException{
 key = {"my","key"};
 ```
 
-##### 数据转换器convert
+##### 数据转换器convert   序列化相关
 
 ###### 1.JDK自带的
 

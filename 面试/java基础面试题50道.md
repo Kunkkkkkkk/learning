@@ -401,6 +401,12 @@
       Integer a = 10;
     	int b = a ;   //自动拆箱
     	Integer c = b;//自动装箱
+    但是equals不会自动装箱和拆箱，比如
+        int i5 = 917;
+            Integer i6 = 917;
+            System.out.println(i5 == i6);
+            System.out.println(i5.equals(i6));
+    下面的连编译都过不去，因为equals需要同类型对象和相同的值
     ```
 
     ```java
@@ -421,8 +427,8 @@
             Integer i8 = 130;
             System.out.println(i7 == i8); //false
     
-            Integer i9 = new Integer("127");
-            Integer i10 = new Integer("127");
+            Integer i9 = new Integer(127);
+            Integer i10 = new Integer(127);
             System.out.println(i9 == i10);//false 这里虽然在范围内,但是是直接创建不同的对象
     ```
 
@@ -454,7 +460,7 @@
       BigDecimal date1 = new BigDecimal("2.003091020030429").setScale(5,ROUND_HALF_UP) //保留五位，四舍五入模式
     ```
 
-32. new String("yupi") 一共创建了几个对象？
+32. new String("yupi") 一共创建了几个对象？（String详解）
 
     ```java
     2个
@@ -469,6 +475,41 @@
     即使池中存在 "abc"，也会创建一个新的堆对象。
     这个新对象的内容与池中的 "abc" 一致，但引用不同。
     ```
+
+    ```java
+    == 当只有基本数据类型时才比较值
+    而string不是基本数据类型
+    String是常量，拼接或者什么都是创建一个新对象
+    String str1 = "hello"; 
+    String str2 = "hello";
+    String str3 = new String("hello");
+    String str4 = new String("hello");
+    String str5 = "hellohello";
+    String str6 = str1 + str2;
+    System.out.println(str1 == str2); //true
+    System.out.println(str2 == str3); //false
+    System.out.println(str3 == str4); //false
+    System.out.println(str2.equals(str3));//true
+    System.out.println(str3.equals(str4));//true
+    System.out.println(str5.equals(str6));//true
+    System.out.println(str5 == str6);//false
+    ```
+
+    ```java
+    String s1 = "helloworld"; 
+    String s2 = "hello";
+    String s3 = "world";
+    String s4 = "hello" + "world";
+    String s5 = s2 + s3;
+    String s6 = new String("helloword");
+    String s7 = "hello" + new String("world");
+    System.out.println(s1 == s4); //true 这里这两个都在缓存池里，所以拼接之后还是同一个内存里的
+    System.out.println(s1 == s5);	//false
+    System.out.println(s1 == s6);	//false
+    System.out.println(s1 == s7);	//false
+    ```
+
+    
 
 33. final、finally、finalize 各自有什么区别？
 
@@ -491,6 +532,20 @@
             System.out.println(1);
         }
     }
+    ```
+
+    ```
+    string转其他：
+    
+    基本数据类型时parseInt
+    
+    包装类是valueof
+    
+    其他转string：
+    
+    基本数据类型：包装类.toString
+    
+    包装类: 对象.toString
     ```
 
     
@@ -694,5 +749,11 @@
 Map hashMap   pull()
 collection List有序可重复 set无序不可重复  add()
 set可以contains()
+```
+
+54. Object类里的getClass()方法
+
+```
+只会获取到当前实例所属的类，this.getClass()和super.getClass()都是获取当前类的类型
 ```
 
