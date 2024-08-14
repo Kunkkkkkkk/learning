@@ -319,3 +319,6 @@ private static final ObjectMapper objectMapper = new ObjectMapper();
 
 如果我们可以吧序列化和反序列化封装到工具类里，那么就很方便了。
 
+---
+
+用stringRedisTemplate操作hash类型，用的是put，这样理解：既然类似于hashmap那么直接put了
