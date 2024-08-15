@@ -293,9 +293,9 @@ void objectParam(){
 
 ---
 
-###### 3.2.2使用StringRedisTemplate并且手动序列和反序列化java对象
+###### 3.2.2使用StringRedisTemplate并且手动序列和反序列化java对象【最重要的】
 
-因为StringRedisTemplate本身就对String类型自动序列化和反序列化，所以只需要管java对象就行了
+因为StringRedisTemplate本身就对String类型自动序列化和反序列化，<u>**所以只需要管java对象就行**</u>了
 
 这里用的objectMapper是spring MVC自带的json工具，我们可以使用fast json（以后自己看看）
 
@@ -311,6 +311,8 @@ private static final ObjectMapper objectMapper = new ObjectMapper();
         User user = new User(1,"wangjia");
         String s = objectMapper.writeValueAsString(user);
         stringRedisTemplate.opsForValue().set("name",s);
+      	//设置过期时间
+      	stringRedisTemplate.expire(name,5,TimeUnit.MINUTES);
         User user1 = objectMapper.readValue(stringRedisTemplate.opsForValue().get("name"),User.class);
         System.out.println(user1);
 
@@ -321,4 +323,18 @@ private static final ObjectMapper objectMapper = new ObjectMapper();
 
 ---
 
-用stringRedisTemplate操作hash类型，用的是put，这样理解：既然类似于hashmap那么直接put了
+用stringRedisTemplate操作hash类型，用的是put，这样理解：既然类似于hashmap那么直接put了。
+
+对于一个对象，我们可以用hash类型，每一个属性名为一个filed，对应的属性为value，就可以用 `putAll(key,Map)`方法，我们可以使用hutool工具快速把一个对象转成Map
+
+```java
+Map(String,Object) map =BeanUtil.beanToMap(user)
+```
+
+---
+
+![image-20240815102824787](redis启动配置和客户端springDataRedis（）.assets/image-20240815102824787.png)
+
+我们在这里可以直接@Autowired
+
+但是我们在interceptor里面无法直接@Autowired，因为这里是@Service注解，spring自动创建了bean，我们自定义的拦截器里面要自己手动创建对象，我们可以在mvcconfig里面弄
