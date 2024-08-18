@@ -1,0 +1,1 @@
+如果你不想在启动类或者配置类中配置 `@MapperScan`，那么你需要在每一个 Mapper 接口上显式地使用 `@Mapper`注解，来表明这个接口是 MyBatis 的 Mapper

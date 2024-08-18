@@ -27,3 +27,7 @@ A:tomcat会自动把session里的id放进cookie，然后每次请求都会带着
 ---
 
 如果你去看源码（120%不会去看），你会发现，wtf？HttpSession不是接口吗，为什么能直接使用方法。没毛病还是Spring的自动注入 😋
+
+---
+
+`HttpSession`参数通常不需要使用注解进行标注，因为Spring MVC能够自动解析并注入`HttpSession`对象。

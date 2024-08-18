@@ -30,6 +30,9 @@ Map<String, Object> stringObjectMap = BeanUtil.beanToMap(userDTO);
 //设置 field 和 value 的类型 (k,v)->(k.转换的,v.转换的) 没要求两个都要写
 ```
 
+这里注意，假如是说要转换的对象里面有的值为null，可以使用 `v!=null?v.toString():""` 
+
 ---
 
 `BeanUtil.fillBeanWith(map,new User(),是否忽略转换中的错误)` 直接把map类型的东西转成要的类
+
